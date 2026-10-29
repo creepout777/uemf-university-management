@@ -2,10 +2,8 @@
 
 # UEMF University Management
 
-Plateforme web de gestion universitaire pour l'Université Euro-Méditerranéenne de Fès.<br />
-Étudiants, enseignants, cours, notes, emplois du temps, examens, frais et annonces, avec un espace dédié à chaque rôle.
-
-<br />
+A university management platform for the Euro-Mediterranean University of Fes.<br />
+Students, faculty, courses, grades, schedules, exams, fees and announcements, with a dedicated space for each role.
 
 ![React](https://img.shields.io/badge/React-19-20232A?style=flat-square&logo=react&logoColor=61DAFB)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=flat-square&logo=typescript&logoColor=white)
@@ -16,168 +14,169 @@ Plateforme web de gestion universitaire pour l'Université Euro-Méditerranéenn
 ![Drizzle](https://img.shields.io/badge/Drizzle_ORM-C5F74F?style=flat-square&logo=drizzle&logoColor=black)
 ![Telegram](https://img.shields.io/badge/Telegram_Bot-26A5E4?style=flat-square&logo=telegram&logoColor=white)
 
-[**Démo en ligne**](http://5.189.141.148:3000/) &nbsp;·&nbsp; [Captures d'écran](#captures-décran) &nbsp;·&nbsp; [Installation](#installation-locale) &nbsp;·&nbsp; [Architecture](#architecture)
+<sub>End-of-semester project · EIDIA, Euro-Mediterranean University of Fes</sub>
+
+[**Live demo**](http://5.189.141.148:3000/) &nbsp;·&nbsp; [Screenshots](#screenshots) &nbsp;·&nbsp; [Getting started](#getting-started) &nbsp;·&nbsp; [Architecture](#architecture)
 
 <br />
 
-<img src="docs/screenshots/cover.png" alt="Tableau de bord administrateur" width="900" />
+<img src="docs/screenshots/cover.png" alt="Administrator dashboard" width="900" />
 
 </div>
 
-## Aperçu
+## Overview
 
-Le système centralise la gestion académique et administrative d'une université dans une seule application web. Chaque utilisateur se connecte avec son rôle (administrateur, administration, enseignant ou étudiant) et ne voit que les pages et les données qui le concernent. Un bot Telegram, branché sur la même API, permet aux étudiants de consulter leur emploi du temps, leurs absences et leur progression sans ouvrir le site.
+The platform brings a university's academic and administrative work into one web application. Every user signs in with a role (administrator, administration staff, teacher or student) and only sees the pages and data that concern them. A Telegram bot connected to the same API lets students check their schedule, absences and progress without opening the site.
 
-## Fonctionnalités
+## Features
 
-| Module | Admin | Administration | Enseignant | Étudiant |
+| Module | Admin | Administration | Teacher | Student |
 |---|:---:|:---:|:---:|:---:|
-| Tableau de bord avec statistiques et graphiques | ✅ | ✅ | ✅ personnel | ✅ personnel |
-| Étudiants (liste, fiche détaillée, recherche) | ✅ | ✅ | ✅ ses étudiants | |
-| Cours et inscriptions | ✅ | ✅ | ✅ ses cours | ✅ ses cours |
-| Enseignants et départements | ✅ | ✅ | ✅ | |
-| Notes | ✅ | ✅ | ✅ saisie, ses cours | ✅ ses notes |
-| Emplois du temps et examens | ✅ | ✅ | ✅ | ✅ |
-| Frais de scolarité | ✅ | ✅ | | ✅ ses frais |
-| Annonces | ✅ | ✅ | ✅ | ✅ |
+| Dashboard with statistics and charts | ✅ | ✅ | ✅ personal | ✅ personal |
+| Students (list, profile, search) | ✅ | ✅ | ✅ own students | |
+| Courses and enrollments | ✅ | ✅ | ✅ own courses | ✅ own courses |
+| Faculty and departments | ✅ | ✅ | ✅ | |
+| Grades | ✅ | ✅ | ✅ entry, own courses | ✅ own grades |
+| Schedules and exams | ✅ | ✅ | ✅ | ✅ |
+| Tuition fees | ✅ | ✅ | | ✅ own fees |
+| Announcements | ✅ | ✅ | ✅ | ✅ |
 
-**Points techniques**
+**Under the hood**
 
-- **Contrôle d'accès par rôle** appliqué deux fois : par un middleware `requireRole` sur chaque route de l'API, et par des routes protégées dans l'interface.
-- **Filtrage des données selon l'utilisateur** : un enseignant ne voit que les étudiants inscrits à ses cours, un étudiant uniquement ses propres cours, notes et frais (`scopeFilter.ts`).
-- **Authentification JWT**, mots de passe hachés avec bcrypt.
-- **API contract-first** : une spécification OpenAPI 3.0 génère les hooks React Query et les schémas Zod (Orval), partagés entre le client et le serveur.
-- **Bot Telegram via OpenClaw** : liaison du compte par jeton à usage unique, puis commandes `/today`, `/week`, `/absence` et `/progress`.
+- **Role-based access control, enforced twice**: a `requireRole` middleware on every API route, and protected routes in the interface.
+- **Per-user data scoping**: teachers only see students enrolled in their courses, and students only see their own courses, grades and fees (`scopeFilter.ts`).
+- **JWT authentication**, with passwords hashed using bcrypt.
+- **Contract-first API**: an OpenAPI 3.0 spec generates the React Query hooks and Zod schemas (Orval), shared by client and server.
+- **Telegram bot through OpenClaw**: accounts are linked with a one-time token, then students use `/today`, `/week`, `/absence` and `/progress`.
 
-## Captures d'écran
+## Screenshots
 
-<sub>Captures réalisées sur une instance locale remplie avec les données de démonstration des scripts de seed.</sub>
+<sub>Taken from a local instance filled with the demo data from the seed scripts.</sub>
 
-### Connexion
+### Sign-in
 
-<img src="docs/screenshots/login.png" alt="Page de connexion" width="100%" />
+<img src="docs/screenshots/login.png" alt="Sign-in page" width="100%" />
 
 ### Administration
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/screenshots/students.png" alt="Liste des étudiants" /><p align="center"><b>Étudiants</b></p></td>
-    <td width="50%"><img src="docs/screenshots/student-detail.png" alt="Fiche étudiant" /><p align="center"><b>Fiche étudiant</b></p></td>
+    <td width="50%"><img src="docs/screenshots/students.png" alt="Students" /><p align="center"><b>Students</b></p></td>
+    <td width="50%"><img src="docs/screenshots/student-detail.png" alt="Student profile" /><p align="center"><b>Student profile</b></p></td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/courses.png" alt="Cours" /><p align="center"><b>Cours</b></p></td>
-    <td><img src="docs/screenshots/faculty.png" alt="Enseignants" /><p align="center"><b>Enseignants</b></p></td>
+    <td><img src="docs/screenshots/courses.png" alt="Courses" /><p align="center"><b>Courses</b></p></td>
+    <td><img src="docs/screenshots/faculty.png" alt="Faculty" /><p align="center"><b>Faculty</b></p></td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/departments.png" alt="Départements" /><p align="center"><b>Départements</b></p></td>
-    <td><img src="docs/screenshots/enrollments.png" alt="Inscriptions" /><p align="center"><b>Inscriptions</b></p></td>
+    <td><img src="docs/screenshots/departments.png" alt="Departments" /><p align="center"><b>Departments</b></p></td>
+    <td><img src="docs/screenshots/enrollments.png" alt="Enrollments" /><p align="center"><b>Enrollments</b></p></td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/grades.png" alt="Notes" /><p align="center"><b>Notes</b></p></td>
-    <td><img src="docs/screenshots/schedules.png" alt="Emplois du temps" /><p align="center"><b>Emplois du temps</b></p></td>
+    <td><img src="docs/screenshots/grades.png" alt="Grades" /><p align="center"><b>Grades</b></p></td>
+    <td><img src="docs/screenshots/schedules.png" alt="Schedules" /><p align="center"><b>Schedules</b></p></td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/exams.png" alt="Examens" /><p align="center"><b>Examens</b></p></td>
-    <td><img src="docs/screenshots/fees.png" alt="Frais de scolarité" /><p align="center"><b>Frais de scolarité</b></p></td>
+    <td><img src="docs/screenshots/exams.png" alt="Exams" /><p align="center"><b>Exams</b></p></td>
+    <td><img src="docs/screenshots/fees.png" alt="Tuition fees" /><p align="center"><b>Tuition fees</b></p></td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/announcements.png" alt="Annonces" /><p align="center"><b>Annonces</b></p></td>
-    <td><img src="docs/screenshots/admin-dashboard.png" alt="Tableau de bord" /><p align="center"><b>Tableau de bord</b></p></td>
+    <td><img src="docs/screenshots/announcements.png" alt="Announcements" /><p align="center"><b>Announcements</b></p></td>
+    <td><img src="docs/screenshots/admin-dashboard.png" alt="Dashboard" /><p align="center"><b>Dashboard</b></p></td>
   </tr>
 </table>
 
-### Espaces enseignant et étudiant
+### Teacher and student spaces
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/screenshots/teacher-dashboard.png" alt="Tableau de bord enseignant" /><p align="center"><b>Tableau de bord enseignant</b></p></td>
-    <td width="50%"><img src="docs/screenshots/student-dashboard.png" alt="Tableau de bord étudiant" /><p align="center"><b>Tableau de bord étudiant</b></p></td>
+    <td width="50%"><img src="docs/screenshots/teacher-dashboard.png" alt="Teacher dashboard" /><p align="center"><b>Teacher dashboard</b></p></td>
+    <td width="50%"><img src="docs/screenshots/student-dashboard.png" alt="Student dashboard" /><p align="center"><b>Student dashboard</b></p></td>
   </tr>
   <tr>
-    <td colspan="2"><img src="docs/screenshots/student-schedule.png" alt="Emploi du temps étudiant" /><p align="center"><b>Emploi du temps de l'étudiant</b></p></td>
+    <td colspan="2"><img src="docs/screenshots/student-schedule.png" alt="Student schedule" /><p align="center"><b>Student schedule</b></p></td>
   </tr>
 </table>
 
 ## Architecture
 
-Monorepo pnpm organisé autour d'une spécification OpenAPI unique :
+A pnpm monorepo built around a single OpenAPI spec:
 
 ```
 UEMF-University-Management/
 ├── artifacts/
-│   ├── university-app/     # Frontend React + Vite (pages, layout, contexte d'authentification)
-│   └── api-server/         # API Express 5 : routes par module, JWT, RBAC, routes Telegram
+│   ├── university-app/     # React + Vite frontend (pages, layout, auth context)
+│   └── api-server/         # Express 5 API: one route file per module, JWT, RBAC, Telegram routes
 ├── lib/
-│   ├── api-spec/           # openapi.yaml + configuration Orval
-│   ├── api-client-react/   # Hooks React Query générés
-│   ├── api-zod/            # Schémas Zod générés
-│   └── db/                 # Schéma Drizzle ORM et migration SQL
-└── scripts/                # Migration, données de démonstration, skill OpenClaw du bot Telegram
+│   ├── api-spec/           # openapi.yaml and Orval config
+│   ├── api-client-react/   # Generated React Query hooks
+│   ├── api-zod/            # Generated Zod schemas
+│   └── db/                 # Drizzle ORM schema and SQL migration
+└── scripts/                # Migration, demo data, OpenClaw skill for the Telegram bot
 ```
 
 ```mermaid
 flowchart LR
-    A[Navigateur] -->|/| B[university-app<br/>React + Vite]
+    A[Browser] -->|/| B[university-app<br/>React + Vite]
     B -->|/api, JWT| C[api-server<br/>Express 5]
     T[Telegram] --> O[OpenClaw<br/>uemf_skill.py] -->|/api/telegram| C
     C -->|Drizzle ORM| D[(PostgreSQL)]
 ```
 
-## Stack technique
+## Tech stack
 
-| Couche | Technologies |
+| Area | Technologies |
 |---|---|
 | Frontend | React 19, Vite 7, TypeScript, Tailwind CSS 4, shadcn/ui, Recharts, TanStack Query, wouter, react-hook-form |
 | Backend | Node.js, Express 5, JWT, bcrypt, pino |
-| Données | PostgreSQL, Drizzle ORM, Zod |
-| Contrat d'API | OpenAPI 3.0, Orval (génération des hooks et schémas) |
-| Intégrations | Bot Telegram via OpenClaw |
-| Déploiement | VPS, PM2, Nginx |
+| Data | PostgreSQL, Drizzle ORM, Zod |
+| API contract | OpenAPI 3.0, Orval (generates hooks and schemas) |
+| Integrations | Telegram bot through OpenClaw |
+| Deployment | VPS, PM2, Nginx |
 
-## Installation locale
+## Getting started
 
-**Prérequis** : Node.js 20+, pnpm, PostgreSQL.
+**Requirements**: Node.js 20+, pnpm, PostgreSQL.
 
 ```bash
-# 1. Dépendances
+# 1. Dependencies
 pnpm install
 
-# 2. Base de données et données de démonstration
+# 2. Database and demo data
 createdb uemf
 export DATABASE_URL=postgresql://postgres@localhost:5432/uemf
 psql "$DATABASE_URL" -f lib/db/drizzle/0000_premium_norrin_radd.sql
 node scripts/run-migration.mjs
 node scripts/seed-data.mjs
 node scripts/seed-users.mjs
-node scripts/seed-telegram-data.mjs   # optionnel : absences et progression
+node scripts/seed-telegram-data.mjs   # optional: absences and progress
 
 # 3. API (port 8080)
 PORT=8080 SESSION_SECRET=change-me pnpm --filter @workspace/api-server run dev
 
-# 4. Frontend (port 22006, dans un autre terminal)
+# 4. Frontend (port 22006, in a second terminal)
 PORT=22006 BASE_PATH=/ pnpm --filter @workspace/university-app run dev
 ```
 
-L'application est ensuite disponible sur http://localhost:22006 (le serveur Vite redirige `/api` vers le port 8080). Sous Windows, `start.ps1` lance PostgreSQL, l'API et le frontend en une commande après avoir adapté le chemin `$projectRoot`.
+Then open http://localhost:22006. The Vite dev server forwards `/api` to port 8080. On Windows, `start.ps1` starts PostgreSQL, the API and the frontend in one go once you set the `$projectRoot` path.
 
-### Comptes de démonstration
+### Demo accounts
 
-| Rôle | Identifiant | Mot de passe |
+| Role | Username | Password |
 |---|---|---|
-| Administrateur | `admin` | `admin123` |
+| Administrator | `admin` | `admin123` |
 | Administration | `administration` | `admin456` |
-| Enseignant | `teacher` | `teacher123` |
-| Étudiant | `student` | `student123` |
+| Teacher | `teacher` | `teacher123` |
+| Student | `student` | `student123` |
 
-## Déploiement
+## Deployment
 
-La version en ligne tourne sur un VPS : l'API et le frontend sont gérés par PM2, derrière Nginx, avec PostgreSQL sur la même machine. Le bot Telegram passe par OpenClaw, qui appelle les routes `/api/telegram/*` de l'API.
+The live version runs on a VPS: PM2 manages the API and the frontend behind Nginx, with PostgreSQL on the same machine. The Telegram bot goes through OpenClaw, which calls the API's `/api/telegram/*` routes.
 
-## Équipe
+## Team
 
-Projet de fin de semestre réalisé à l'EIDIA, Université Euro-Méditerranéenne de Fès, par :
+Yassine Aitaouicha, Haytam Hannoun, Douaa Bahaja and Hamza El Mourabit.
 
-- **Yassine Aitaouicha**
-- **Haytam Hannoun**
-- **Douaa Bahaja**
-- **Hamza El Mourabit**
+---
+
+<div align="center"><sub>Part of <a href="https://github.com/creepout777">Yassine Aitaouicha's projects</a></sub></div>
